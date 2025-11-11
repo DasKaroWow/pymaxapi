@@ -169,6 +169,7 @@ dependencies = [
     { name = "httpx" },
     { name = "pydantic" },
     { name = "pydantic-settings" },
+    { name = "universalasync" },
 ]
 
 [package.metadata]
@@ -176,6 +177,7 @@ requires-dist = [
     { name = "httpx", specifier = ">=0.28.1" },
     { name = "pydantic", specifier = ">=2.12.4" },
     { name = "pydantic-settings", specifier = ">=2.12.0" },
+    { name = "universalasync", specifier = ">=0.5.0.0" },
 ]
 
 [[package]]
@@ -215,4 +217,13 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/55/e3/70399cb7dd41c10ac53367ae42139cf4b1ca5f36bb3dc6c9d33acdb43655/typing_inspection-0.4.2.tar.gz", hash = "sha256:ba561c48a67c5958007083d386c3295464928b01faa735ab8547c5692e87f464", size = 75949, upload-time = "2025-10-01T02:14:41.687Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/dc/9b/47798a6c91d8bdb567fe2698fe81e0c6b7cb7ef4d13da4114b41d239f65d/typing_inspection-0.4.2-py3-none-any.whl", hash = "sha256:4ed1cacbdc298c220f1bd249ed5287caa16f34d44ef4e9c3d0cbad5b521545e7", size = 14611, upload-time = "2025-10-01T02:14:40.154Z" },
+]
+
+[[package]]
+name = "universalasync"
+version = "0.5.0.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/94/65/9f4d9d630d2458548767f6a974b3e9fa316809aa5f11f02122ad22b2bf51/universalasync-0.5.0.0.tar.gz", hash = "sha256:e1085d6e71681cf362e24df00685261b88e0bee62252f869c3d311cc21f1a7cd", size = 71176, upload-time = "2025-10-19T12:39:19.814Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/b0/5c/a932bcd7f3a4a9d682498662ab12425c911d1ee45c41f9d81cfa35097fe5/universalasync-0.5.0.0-py3-none-any.whl", hash = "sha256:a22c0aa58dcbc9008c3ed9ae8b707a8e64035e0798ec9033fdb5aa4e9948bc75", size = 5979, upload-time = "2025-10-19T12:39:19.022Z" },
 ]

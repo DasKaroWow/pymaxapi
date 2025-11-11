@@ -11,6 +11,7 @@ dependencies = [
     "httpx>=0.28.1",
     "pydantic>=2.12.4",
     "pydantic-settings>=2.12.0",
+    "universalasync>=0.5.0.0",
 ]
 
 [project.scripts]

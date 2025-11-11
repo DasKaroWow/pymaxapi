@@ -1,2 +1,3 @@
-def main() -> None:
-    print("Hello from pymaxapi!")
+from pymaxapi.client import MaxAPI
+
+__all__ = ["MaxAPI"]

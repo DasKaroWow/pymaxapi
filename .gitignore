@@ -1,3 +1,8 @@
+# Misc
+test.py
+**/test.py
+project_dump.txt
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
