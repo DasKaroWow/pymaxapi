@@ -1,34 +1,26 @@
-from __future__ import annotations
-from typing import Any, Mapping
+from typing import Any
 import httpx
-from .config import BASE_URL, TIMEOUT
 from json import JSONDecodeError
+from typing import TypeVar
+from pydantic import BaseModel
+from httpx._types import RequestFiles, QueryParamTypes
+
+# PydanticType = TypeVar("PydanticType", bound=BaseModel)
+
 
 def _make_url(base_url: str, path: str) -> str:
     return f"{base_url}/{path}"
 
-def _prepare_kwargs(
-    *,
-    json: Any = None,
-    params: Mapping[str, Any] | None = None,
-    files: Mapping[str, Any] | None = None,
-) -> dict:
-    keywords: dict[str, Any] = {}
-    if json is not None:
-        keywords["json"] = json
-    if params:
-        keywords["params"] = params
-    if files:
-        keywords["files"] = files
-    return keywords
+class APIError(Exception):
+    pass
 
-
-def _parse(response: httpx.Response) -> dict[str, Any] | list[dict[str, Any]]:
+def _parse(response: httpx.Response) -> Any:
     response.raise_for_status()
+    content_type = response.headers.get("content-type", "")
     try:
         return response.json()
-    except JSONDecodeError:
-        raise JSONDecodeError(f"Вернулся не JSON: {response.content}", doc="", pos=0)
+    except JSONDecodeError as e:
+        raise APIError(f"Вернулся не JSON:\nContent-type: {content_type}\nBody: {response.content[:1000]}") from e
 
 
 def _auth_headers(token: str) -> dict[str, str]:
@@ -36,6 +28,22 @@ def _auth_headers(token: str) -> dict[str, str]:
         "Content-Type": "application/json",
         "Authorization": token,
     }
+
+
+def _get_pydantic(
+    object_type: type[BaseModel],
+    http_client: httpx.Client,
+    method: str,
+    base_url: str,
+    path: str,
+    params: QueryParamTypes | None = None,
+    json: Any | None = None,
+    files: RequestFiles | None = None,
+) -> ...:
+    url = _make_url(base_url, path)
+    response = http_client.request(method, url, params=params, json=json, files=files)
+    json = _parse(response)
+    return object_type.model_validate(json)
 
 
 # class Client:
@@ -50,7 +58,6 @@ def _auth_headers(token: str) -> dict[str, str]:
 
 #     def close(self) -> None:
 #         self._client.close()
-
 
 
 # class AsyncClient:
